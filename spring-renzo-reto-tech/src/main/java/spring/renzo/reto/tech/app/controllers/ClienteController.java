@@ -1,6 +1,7 @@
 package spring.renzo.reto.tech.app.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -37,7 +38,17 @@ public class ClienteController {
 		
 		ObjectoRespuesta resp =  new ObjectoRespuesta();
 		
-		resp.setPromedio(list.stream().mapToInt(cliente -> cliente.getEdad()).average().getAsDouble()); // Promedio de edades
+		// Promedio de edades
+		resp.setPromedio(list.stream()
+							.mapToInt(cliente -> cliente.getEdad())
+							.average()
+							.getAsDouble()); 
+		
+		// Desviacion estandar de las edades
+		resp.setDeviacion(calcularDesviacionEstandar(list.stream()
+														.map(cliente -> cliente.getEdad())
+														.collect(Collectors.toList()))
+													);
 		
 		return resp;
 	}
@@ -46,4 +57,22 @@ public class ClienteController {
 	public List<ClienteDTO> readAllCustomFechaMuerte(){
 		return repository.findAll();
 	}
+	
+	public static double calcularDesviacionEstandar(List<Integer> numArray)
+    {
+        double sum = 0.0, desviacionEstandar = 0.0;
+        int length = numArray.size();
+
+        for(double num : numArray) {
+            sum += num;
+        }
+
+        double mean = sum/length;
+
+        for(double num: numArray) {
+        	desviacionEstandar += Math.pow(num - mean, 2);
+        }
+
+        return Math.sqrt(desviacionEstandar/length);
+    }
 }
