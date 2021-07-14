@@ -61,7 +61,7 @@ public class ClienteController {
 		
 		list = list.stream().map(cliente -> {
 											long estimadoVida = cliente.getEdad().intValue() + random.nextInt(70);										
-											cliente.setFechaProbableMuerte(cliente.getFechaNacimiento().plusDays(estimadoVida));
+											cliente.setFechaProbableMuerte(cliente.getFechaNacimiento().plusYears(estimadoVida));
 											return cliente;
 									 	}
 						 		).collect(Collectors.toList());
