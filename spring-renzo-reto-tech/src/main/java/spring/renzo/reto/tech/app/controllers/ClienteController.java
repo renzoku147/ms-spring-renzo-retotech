@@ -1,6 +1,7 @@
 package spring.renzo.reto.tech.app.controllers;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,16 @@ public class ClienteController {
 	
 	@GetMapping("/listclientes")
 	public List<ClienteDTO> readAllCustomFechaMuerte(){
-		return repository.findAll();
+		List<ClienteDTO> list = repository.findAll();
+		Random random = new Random();
+		
+		list = list.stream().map(cliente -> {
+											long estimadoVida = cliente.getEdad().intValue() + random.nextInt(70);										
+											cliente.setFechaProbableMuerte(cliente.getFechaNacimiento().plusDays(estimadoVida));
+											return cliente;
+									 	}
+						 		).collect(Collectors.toList());
+		return list;
 	}
 	
 	public static double calcularDesviacionEstandar(List<Integer> numArray)

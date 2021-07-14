@@ -19,6 +19,8 @@ public class ClienteDTO {
 	
 	private LocalDate fechaNacimiento;
 	
+	private LocalDate fechaProbableMuerte;
+	
 	public ClienteDTO() {
 		super();
 	}
@@ -69,6 +71,14 @@ public class ClienteDTO {
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public LocalDate getFechaProbableMuerte() {
+		return fechaProbableMuerte;
+	}
+
+	public void setFechaProbableMuerte(LocalDate fechaProbableMuerte) {
+		this.fechaProbableMuerte = fechaProbableMuerte;
 	}
 	
 	
